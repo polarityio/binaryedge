@@ -1,0 +1,366 @@
+{{#if details}}
+  <div>
+    <a href="https://app.binaryedge.io/services/query?query={{block.entity.value}}" class="p-link">Pivot to BinaryEdge {{fa-icon "external-link-square" class="external-link-icon"}}</a>
+  </div>
+
+  {{#if (eq block.entity.type "email")}}
+
+    <span class="p-title">{{fa-icon "info" fixedWidth=true}} Dataleak Event Details</span>
+
+    {{#if details.total}}
+      <div>
+          <span class="p-key">Total Dataleak Events: </span>
+          <span class="p-value">{{details.total}}</span>
+      </div>
+    {{/if}}
+    {{#if (gt details.events.length 0)}}
+      <div class="tag-container">
+        {{#each details.events as |event|}}
+          <span class="tag">{{event}}</span>
+        {{/each}}
+      </div>
+    {{/if}}
+
+  {{/if}}
+
+  {{#if (eq block.entity.type "domain")}}
+
+    <span class="p-title">{{fa-icon "info" fixedWidth=true}} Subdomain Details</span>
+
+    {{#if details.total}}
+      <div>
+          <span class="p-key">Total Known Subdomains: </span>
+          <span class="p-value">{{details.total}}</span>
+      </div>
+    {{/if}}
+    {{#if (gt details.events.length 0)}}
+      <div class="tag-container">
+        {{#each details.events as |event|}}
+          <span class="tag">{{event}}</span>
+        {{/each}}
+      </div>
+    {{/if}}
+
+  {{/if}}
+
+  {{#if (eq block.entity.type "IPv4")}}
+
+    <span class="p-title">{{fa-icon "info" fixedWidth=true}} Host Event Details</span>
+
+    {{#if details.total}}
+      <div>
+          <span class="p-key">Total Host Events: </span>
+          <span class="p-value">{{details.total}}</span>
+      </div>
+    {{/if}}
+    {{#if (gt details.events.length 0)}}
+      {{#each details.events as |event|}}
+        {{#each event.results as |result index|}}
+          <span class="p-title">Event #{{inc index}}:</span>
+          <span class="p-title">{{fa-icon "bullseye" fixedWidth=true}} Target Details</span>
+            {{#if result.target.protocol}}
+              <div>
+                  <span class="p-key">Target Protocol: </span>
+                  <span class="p-value">{{result.target.protocol}}</span>
+              </div>
+            {{/if}}
+            {{#if result.target.ip}}
+              <div>
+                  <span class="p-key">Target IP: </span>
+                  <span class="p-value">{{result.target.ip}}</span>
+              </div>
+            {{/if}}
+            {{#if result.target.port}}
+              <div>
+                  <span class="p-key">Target Port: </span>
+                  <span class="p-value">{{result.target.port}}</span>
+              </div>
+            {{/if}}
+            <span class="p-title">{{fa-icon "thumbtack" fixedWidth=true}} Origin Details</span>
+            {{#if result.origin.ip}}
+              <div>
+                  <span class="p-key">Origin IP: </span>
+                  <span class="p-value">{{result.origin.ip}}</span>
+              </div>
+            {{/if}}
+            {{#if result.origin.port}}
+              <div>
+                  <span class="p-key">Origin Port: </span>
+                  <span class="p-value">{{result.origin.port}}</span>
+              </div>
+            {{/if}}
+            {{#if result.origin.type}}
+              <div>
+                  <span class="p-key">Origin Type: </span>
+                  <span class="p-value">{{result.origin.type}}</span>
+              </div>
+            {{/if}}
+            {{#if result.origin.country}}
+              <div>
+                  <span class="p-key">Origin Country: </span>
+                  <span class="p-value">{{result.origin.country}}</span>
+              </div>
+            {{/if}}
+            {{#if result.origin.module}}
+              <div>
+                  <span class="p-key">Origin Module: </span>
+                  <span class="p-value">{{result.origin.module}}</span>
+              </div>
+            {{/if}}
+            {{#if result.origin.ts}}
+                <div>
+                    <span class="p-key">Timestamp: </span>
+                    <span class="p-value">{{moment-format result.origin.ts "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
+                </div>
+            {{/if}}
+            <span class="p-title">{{fa-icon "align-justify" fixedWidth=true}} Result Detail</span>
+            {{#if result.result.data.state.state}}
+              <div>
+                  <span class="p-key">Port State: </span>
+                  <span class="p-value">{{result.result.data.state.state}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.service.method}}
+              <div>
+                  <span class="p-key">Service ID Method: </span>
+                  <span class="p-value">{{result.result.data.service.method}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.service.extrainfo}}
+              <div>
+                  <span class="p-key">Service Extra Info: </span>
+                  <span class="p-value">{{result.result.data.service.extrainfo}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.service.name}}
+              <div>
+                  <span class="p-key">Service Name: </span>
+                  <span class="p-value">{{result.result.data.service.name}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.service.banner}}
+              <div><span class="p-key">Service Banner: </span></div>
+              <div class="text-container">{{result.result.data.service.banner}}</div>
+            {{/if}}
+            {{#if result.result.data.service.probe}}
+              <div><span class="p-key">Service Probe: </span></div>
+              <div class="text-container">{{result.result.data.service.probe}}</div>
+            {{/if}}
+            {{#if result.result.data.request}}
+              <span class="p-title">{{fa-icon "chevron-circle-right" fixedWidth=true}} Request Details</span>
+            {{/if}}
+            {{#if result.result.data.request.headers.accept-encoding}}
+              <div>
+                  <span class="p-key">Accept-Encoding Header: </span>
+                  <span class="p-value">{{result.result.data.request.headers.accept-encoding}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.request.headers.user-agent}}
+              <div>
+                  <span class="p-key">User-Agent Header: </span>
+                  <span class="p-value">{{result.result.data.request.headers.user-agent}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.request.url}}
+              <div>
+                  <span class="p-key">Request URL: </span>
+                  <span class="p-value">{{result.result.data.request.url}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.request.method}}
+              <div>
+                  <span class="p-key">Request Method: </span>
+                  <span class="p-value">{{result.result.data.request.method}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.request.path}}
+              <div>
+                  <span class="p-key">Request Path: </span>
+                  <span class="p-value">{{result.result.data.request.path}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.apps}}
+              {{#each result.result.data.apps as |app|}}
+                {{#if app.confidence}}
+                  <div>
+                      <span class="p-key">App Confidence: </span>
+                      <span class="p-value">{{app.confidence}}</span>
+                  </div>
+                {{/if}}
+                {{#if app.categories}}
+                  <span class="p-key">App Categories: </span>
+                  <div class="tag-container">
+                    {{#each app.categories as |category|}}
+                      <span class="tag">{{category}}</span>
+                    {{/each}}
+                  </div>
+                {{/if}}
+              {{/each}}
+            {{/if}}
+            {{#if result.result.data.response}}
+              <span class="p-title">{{fa-icon "chevron-circle-left" fixedWidth=true}} Response Details</span>
+            {{/if}}
+            {{#if result.result.data.response.url}}
+              <div>
+                  <span class="p-key">Response URL: </span>
+                  <span class="p-value">{{result.result.data.response.url}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.status.code}}
+              <div>
+                  <span class="p-key">Status Code: </span>
+                  <span class="p-value">{{result.result.data.response.status.code}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.status.message}}
+              <div>
+                  <span class="p-key">Status Message: </span>
+                  <span class="p-value">{{result.result.data.response.status.message}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.protocol_version}}
+              <div>
+                  <span class="p-key">Protocol Version: </span>
+                  <span class="p-value">{{result.result.data.response.protocol_version}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.body.ssdeep_hash}}
+              <div>
+                  <span class="p-key">Response SSDeep Hash: </span>
+                  <span class="p-value">{{result.result.data.response.body.ssdeep_hash}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.body.sha256_hash}}
+              <div>
+                  <span class="p-key">Response SHA-256 Hash: </span>
+                  <span class="p-value">{{result.result.data.response.body.sha256_hash}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.path}}
+              <div>
+                  <span class="p-key">Response Path: </span>
+                  <span class="p-value">{{result.result.data.response.path}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.headers.headers.server}}
+              <div>
+                  <span class="p-key">Server Header: </span>
+                  <span class="p-value">{{result.result.data.response.headers.headers.server}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.headers.headers.expires}}
+              <div>
+                  <span class="p-key">Expires Header: </span>
+                  <span class="p-value">{{result.result.data.response.headers.headers.expires}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.headers.headers.cache-control}}
+              <div>
+                  <span class="p-key">Cache-Control Header: </span>
+                  <span class="p-value">{{result.result.data.response.headers.headers.cache-control}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.headers.headers.content-type}}
+              <div>
+                  <span class="p-key">Content-Type Header: </span>
+                  <span class="p-value">{{result.result.data.response.headers.headers.content-type}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.headers.headers.x-xss-protection}}
+              <div>
+                  <span class="p-key">X-XSS-Protection Header: </span>
+                  <span class="p-value">{{result.result.data.response.headers.headers.x-xss-protection}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.headers.headers.pragma}}
+              <div>
+                  <span class="p-key">Pragma Header: </span>
+                  <span class="p-value">{{result.result.data.response.headers.headers.pragma}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.headers.headers.content-length}}
+              <div>
+                  <span class="p-key">Content-Length Header: </span>
+                  <span class="p-value">{{result.result.data.response.headers.headers.content-length}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.headers.headers.date}}
+              <div>
+                  <span class="p-key">Date Header: </span>
+                  <span class="p-value">{{result.result.data.response.headers.headers.date}}</span>
+              </div>
+            {{/if}}
+            {{#if result.result.data.response.redirects}}
+              <span class="p-title">{{fa-icon "expand-arrows-alt" fixedWidth=true}} Redirect Details</span>
+              {{#each result.result.data.response.redirects as |redirect|}}
+                {{#if redirect.headers.server}}
+                  <div>
+                      <span class="p-key">Server Header: </span>
+                      <span class="p-value">{{redirect.headers.server}}</span>
+                  </div>
+                {{/if}}
+                {{#if redirect.headers.x-frame-options}}
+                  <div>
+                      <span class="p-key">X-Frame-Options Header: </span>
+                      <span class="p-value">{{redirect.headers.x-frame-options}}</span>
+                  </div>
+                {{/if}}
+                {{#if redirect.headers.expires}}
+                  <div>
+                      <span class="p-key">Expires Header: </span>
+                      <span class="p-value">{{redirect.headers.expires}}</span>
+                  </div>
+                {{/if}}
+                {{#if redirect.headers.cache-control}}
+                  <div>
+                      <span class="p-key">Cache-Control Header: </span>
+                      <span class="p-value">{{redirect.headers.cache-control}}</span>
+                  </div>
+                {{/if}}
+                {{#if redirect.headers.content-type}}
+                  <div>
+                      <span class="p-key">Content-Type Header: </span>
+                      <span class="p-value">{{redirect.headers.content-type}}</span>
+                  </div>
+                {{/if}}
+                {{#if redirect.headers.location}}
+                  <div>
+                      <span class="p-key">Location Header: </span>
+                      <span class="p-value">{{redirect.headers.location}}</span>
+                  </div>
+                {{/if}}
+                {{#if redirect.headers.x-xss-protection}}
+                  <div>
+                      <span class="p-key">X-XSS-Protection Header: </span>
+                      <span class="p-value">{{redirect.headers.x-xss-protection}}</span>
+                  </div>
+                {{/if}}
+                {{#if redirect.headers.content-length}}
+                  <div>
+                      <span class="p-key">Content-Length Header: </span>
+                      <span class="p-value">{{redirect.headers.content-length}}</span>
+                  </div>
+                {{/if}}
+                {{#if redirect.headers.date}}
+                  <div>
+                      <span class="p-key">Date Header: </span>
+                      <span class="p-value">{{redirect.headers.date}}</span>
+                  </div>
+                {{/if}}
+                {{#if redirect.redirect_uri}}
+                  <div>
+                      <span class="p-key">URI: </span>
+                      <span class="p-value">{{redirect.redirect_uri}}</span>
+                  </div>
+                {{/if}}
+              {{/each}}
+            {{/if}}
+            <hr>
+          {{/each}}
+      {{/each}}
+    {{/if}}
+
+  {{/if}}
+
+
+{{/if}}
