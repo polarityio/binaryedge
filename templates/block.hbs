@@ -56,63 +56,73 @@
     {{#if (gt details.events.length 0)}}
       {{#each details.events as |event|}}
         {{#each event.results as |result index|}}
+          {{#if (gt index 0)}}
+            <hr>
+          {{/if}}
           <span class="p-title">Event #{{inc index}}:</span>
-          <span class="p-title">{{fa-icon "bullseye" fixedWidth=true}} Target Details</span>
+          {{#if result.target}}
+            <span class="p-title">{{fa-icon "bullseye" fixedWidth=true}} Target Details</span>
             {{#if result.target.protocol}}
               <div>
-                  <span class="p-key">Target Protocol: </span>
-                  <span class="p-value">{{result.target.protocol}}</span>
+                <span class="p-key">Target Protocol: </span>
+                <span class="p-value">{{result.target.protocol}}</span>
               </div>
             {{/if}}
             {{#if result.target.ip}}
               <div>
-                  <span class="p-key">Target IP: </span>
-                  <span class="p-value">{{result.target.ip}}</span>
+                <span class="p-key">Target IP: </span>
+                <span class="p-value">{{result.target.ip}}</span>
               </div>
             {{/if}}
             {{#if result.target.port}}
               <div>
-                  <span class="p-key">Target Port: </span>
-                  <span class="p-value">{{result.target.port}}</span>
+                <span class="p-key">Target Port: </span>
+                <span class="p-value">{{result.target.port}}</span>
               </div>
             {{/if}}
+          {{/if}}
+          
+          {{#if result.origin}}
             <span class="p-title">{{fa-icon "thumbtack" fixedWidth=true}} Origin Details</span>
             {{#if result.origin.ip}}
               <div>
-                  <span class="p-key">Origin IP: </span>
-                  <span class="p-value">{{result.origin.ip}}</span>
+                <span class="p-key">Origin IP: </span>
+                <span class="p-value">{{result.origin.ip}}</span>
               </div>
             {{/if}}
             {{#if result.origin.port}}
               <div>
-                  <span class="p-key">Origin Port: </span>
-                  <span class="p-value">{{result.origin.port}}</span>
+                <span class="p-key">Origin Port: </span>
+                <span class="p-value">{{result.origin.port}}</span>
               </div>
             {{/if}}
             {{#if result.origin.type}}
               <div>
-                  <span class="p-key">Origin Type: </span>
-                  <span class="p-value">{{result.origin.type}}</span>
+                <span class="p-key">Origin Type: </span>
+                <span class="p-value">{{result.origin.type}}</span>
               </div>
             {{/if}}
             {{#if result.origin.country}}
               <div>
-                  <span class="p-key">Origin Country: </span>
-                  <span class="p-value">{{result.origin.country}}</span>
+                <span class="p-key">Origin Country: </span>
+                <span class="p-value">{{result.origin.country}}</span>
               </div>
             {{/if}}
             {{#if result.origin.module}}
               <div>
-                  <span class="p-key">Origin Module: </span>
-                  <span class="p-value">{{result.origin.module}}</span>
+                <span class="p-key">Origin Module: </span>
+                <span class="p-value">{{result.origin.module}}</span>
               </div>
             {{/if}}
             {{#if result.origin.ts}}
-                <div>
-                    <span class="p-key">Timestamp: </span>
-                    <span class="p-value">{{moment-format result.origin.ts "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
-                </div>
+              <div>
+                <span class="p-key">Timestamp: </span>
+                <span class="p-value">{{moment-format result.origin.ts "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
+              </div>
             {{/if}}
+          {{/if}}
+
+          {{#if (and result.result.data (or result.result.data.state result.result.data.service result.result.data.request result.result.data.apps result.result.data.response))}}
             <span class="p-title">{{fa-icon "align-justify" fixedWidth=true}} Result Detail</span>
             {{#if result.result.data.state.state}}
               <div>
@@ -355,12 +365,9 @@
                 {{/if}}
               {{/each}}
             {{/if}}
-            <hr>
-          {{/each}}
+          {{/if}}
+        {{/each}}
       {{/each}}
     {{/if}}
-
   {{/if}}
-
-
 {{/if}}
