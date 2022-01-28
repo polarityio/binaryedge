@@ -71,7 +71,7 @@ function doLookup(entities, options, cb) {
 
     tasks.push(function(done) {
       requestWithDefaults(requestOptions, function(error, res, body) {
-        Logger.trace({ body, status: res.statusCode });
+        Logger.trace({ body, status: res ? res.statusCode : 'NA' });
         let processedResult = handleRestError(error, entity, res, body);
 
         if (processedResult.error) {
