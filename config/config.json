@@ -1,0 +1,53 @@
+{
+  "name": "BinaryEdge",
+  "acronym": "BINE",
+  "description": "BinaryEdge is Cybersecurity/Data Science company that focuses its effort on acquiring, analyzing and classifying internet wide data.",
+  "entityTypes": [
+    "domain",
+    "IPv4",
+    "email"
+  ],
+  "defaultColor": "light-gray",
+  "styles": [
+    "./styles/style.less"
+  ],
+  "block": {
+    "component": {
+      "file": "./components/block.js"
+    },
+    "template": {
+      "file": "./templates/block.hbs"
+    }
+  },
+  "summary": {
+    "component": {
+      "file": "./components/summary.js"
+    },
+    "template": {
+      "file": "./templates/summary.hbs"
+    }
+  },
+  "request": {
+    "cert": "",
+    "key": "",
+    "passphrase": "",
+    "ca": "",
+    "proxy": "",
+    "rejectUnauthorized": true
+  },
+  "logging": {
+    "level": "info"
+  },
+  "onDemandOnly": true,
+  "options": [
+    {
+      "key": "apiKey",
+      "name": "Valid BinaryEdge API Key",
+      "description": "Valid BinaryEdge API Key",
+      "default": "",
+      "type": "password",
+      "userCanEdit": true,
+      "adminOnly": false
+    }
+  ]
+}
